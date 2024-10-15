@@ -9,7 +9,7 @@ const HelpCenterAccordion = ({ trigger, content }: { trigger: string; content: s
   return (
     <Accordion type="single" collapsible className="w-full">
         <AccordionItem value="item-1">
-            <AccordionTrigger>{trigger}</AccordionTrigger>
+            <AccordionTrigger className="text-pretty">{trigger}</AccordionTrigger>
             <AccordionContent>
                 {content}
             </AccordionContent>

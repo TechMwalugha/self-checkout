@@ -40,7 +40,7 @@ export default function Scanner() {
   }, []);
 
   return (
-    <div className="App">
+    <div className="flex items-center justify-center">
       {scanResult ? (
         <div>
           <h1>Scan Result</h1>

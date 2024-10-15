@@ -19,6 +19,7 @@ const page = () => {
     
     {
         helpCenterAnswers.map((item: { trigger: string; content: string; }, index: number) =>  <HelpCenterAccordion 
+        key={index}
         trigger={item.trigger}
         content={item.content}/>)
     }
