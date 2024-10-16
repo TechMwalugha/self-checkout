@@ -36,3 +36,30 @@ export const helpCenterAnswers = [
         content: "Yes, you can return items according to the store's return policy. To start a return, go to your digital receipt in the app, select the item, and follow the return instructions. You may also visit the store with the items and your digital receipt for assistance."
     },
 ]
+
+export const cartItems = [
+    {
+        name: "Mumias Sugar",
+        quantity: '1 kilogram',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3h8Cdh5Uh_-6C6WVs9Pxo8_4aMXkvaQlWfw&s',
+        price: 300
+    },
+    {
+        name: "Longhorn book",
+        quantity: '1 book',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3h8Cdh5Uh_-6C6WVs9Pxo8_4aMXkvaQlWfw&s',
+        price: 50
+    },
+    {
+        name: "Bahari Cooking Oil",
+        quantity: '2 Litres',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3h8Cdh5Uh_-6C6WVs9Pxo8_4aMXkvaQlWfw&s',
+        price: 450
+    },
+    {
+        name: "Menegai bread",
+        quantity: '1 Loaf',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3h8Cdh5Uh_-6C6WVs9Pxo8_4aMXkvaQlWfw&s',
+        price: 65
+    },
+]
