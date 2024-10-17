@@ -1,9 +1,15 @@
 'use client'
 
+import { retrieveItem } from '@/lib/actions/item.action';
 import { Html5Qrcode } from 'html5-qrcode'
 import { useEffect, useState } from 'react';
 
-const Scanner = () => {
+const Scanner = ({ 
+  currentCartItems, setCurrentCartItems
+}: {
+  currentCartItems: { name: string; description: string; price: number; image: string; quantity: string }[];
+  setCurrentCartItems: React.Dispatch<React.SetStateAction<{ name: string; description: string; price: number; image: string; quantity: string }[]>>
+}) => {
   const [html5QrCode, setHtml5QrCode] = useState<Html5Qrcode | null>(null);
   const [scanResult, setScanResult] = useState<string | null>(null);
   const [isScanning, setIsScanning] = useState(false);
@@ -34,9 +40,16 @@ const Scanner = () => {
       html5QrCode.start(
         { facingMode: "environment" }, // Use back camera
         config,
-        (decodedText: string) => {
-          setScanResult(decodedText);
+       async (decodedText: string) => {
+          // setScanResult(decodedText);
           stopScanner(); // Stop the scanner after successful scan
+          const result = await addScannedItemToCart({
+            decodedText,
+            currentCartItems,
+            setCurrentCartItems
+          })
+          setScanResult(result.message as string)
+
         },
         (errorMessage: string) => {
           console.warn('QR code scan error:', errorMessage);
@@ -83,5 +96,52 @@ const Scanner = () => {
     </div>
   );
 };
+
+async function addScannedItemToCart({ decodedText, currentCartItems, setCurrentCartItems } : {
+  decodedText: string;
+  currentCartItems: { name: string; description: string; price: number; image: string; quantity: string }[];
+  setCurrentCartItems: React.Dispatch<React.SetStateAction<{ name: string; description: string; price: number; image: string; quantity: string }[]>>
+}) {
+
+  const result = await retrieveItem({ itemId: decodedText })
+
+  if(!result.success) {
+    return {
+        success: false,
+        message: result.message,
+    }
+  }
+  // Check if the item already exists in the current cart items
+  const itemExists = currentCartItems.some(item => 
+    item.name === result?.item?.name // or any unique identifier
+  )
+
+  if(itemExists) {
+
+    return {
+      success: false,
+      message: 'Item already in cart'
+    }
+  } 
+
+  setCurrentCartItems((currentItems: any) => {
+    return [
+      ...currentItems,
+      {
+        name: result?.item?.name,
+        description: result?.item?.description,
+        price: result?.item?.price,
+        image: result?.item?.image,
+        quantity: result?.item?.quantity
+      }
+    ]
+  })
+
+  return {
+    success: true,
+    message: `${result?.item?.name} added to cart`
+  }
+
+}
 
 export default Scanner;

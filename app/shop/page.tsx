@@ -53,7 +53,10 @@ const Home = () => {
                     <TabsTrigger value="item-id">Enter Item ID</TabsTrigger>
                 </TabsList>
                 <TabsContent value="qr-code">
-                    <Scanner />
+                    <Scanner
+                    currentCartItems={currentCartItems}
+                    setCurrentCartItems={setCurrentCartItems}
+                     />
                 </TabsContent>
                 <TabsContent value="item-id">
                     <ItemId
