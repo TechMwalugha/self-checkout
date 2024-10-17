@@ -14,12 +14,16 @@ const Home = () => {
     useEffect(() => {
         // Check if we're in the browser environment
         if (typeof window !== 'undefined') {
-            const storedItems = localStorage.getItem('storedCartItems');
+            let storedItems = localStorage.getItem('storedCartItems');
             console.log(storedItems === null)
             if (storedItems || storedItems === null) {
+
+                if(storedItems === null) {
+                    storedItems = JSON.stringify([])
+                }
                 
                 try {
-                    const parsedItems = JSON.parse(storedItems as string);
+                    const parsedItems = JSON.parse(storedItems);
                     setCurrentCartItems(parsedItems);
                     const newTotalPrice = parsedItems.reduce((acc: number, item: { price: number }) => acc + item.price, 0);
                     setTotalPrice(newTotalPrice);
