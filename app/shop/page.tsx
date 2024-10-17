@@ -9,19 +9,6 @@ const Home = () => {
     const [currentCartItems, setCurrentCartItems] = useState<{ name: string; description: string; price: number; image: string; quantity: string; }[]>([]);
     const [totalPrice, setTotalPrice] = useState(0);
 
-    // // Initialize state by checking localStorage, ensuring it's done only once during component mount
-    // const [currentCartItems, setCurrentCartItems] = useState<{ name: string; description: string; price: number; image: string; quantity: string; }[]>(() => {
-    //     const storedItems = localStorage.getItem('storedCartItems');
-    //     return storedItems ? JSON.parse(storedItems) : []; // Load from localStorage or use an empty array
-    // });
-
-    // // Initialize total price based on the items in localStorage
-    // const [totalPrice, setTotalPrice] = useState(() => {
-    //     const storedItems = localStorage.getItem('storedCartItems');
-    //     const items = storedItems ? JSON.parse(storedItems) : [];
-    //     return items.reduce((acc: number, item: { price: number }) => acc + item.price, 0);
-    // });
-
     useEffect(() => {
         // Check if we're in the browser environment
         if (typeof window !== 'undefined') {
