@@ -15,7 +15,9 @@ const Home = () => {
         // Check if we're in the browser environment
         // if (typeof window !== 'undefined') {
             const storedItems = localStorage.getItem('storedCartItems');
+            console.log(storedItems)
             if (storedItems) {
+                
                 try {
                     const parsedItems = JSON.parse(storedItems);
                     setCurrentCartItems(parsedItems);
