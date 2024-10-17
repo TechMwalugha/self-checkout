@@ -19,7 +19,7 @@ const Home = () => {
             if (storedItems || storedItems === null) {
                 
                 try {
-                    const parsedItems = JSON.parse(storedItems);
+                    const parsedItems = JSON.parse(storedItems as string);
                     setCurrentCartItems(parsedItems);
                     const newTotalPrice = parsedItems.reduce((acc: number, item: { price: number }) => acc + item.price, 0);
                     setTotalPrice(newTotalPrice);
