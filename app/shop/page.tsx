@@ -13,7 +13,7 @@ const Home = () => {
 
     useEffect(() => {
         // Check if we're in the browser environment
-        if (typeof window !== 'undefined') {
+        // if (typeof window !== 'undefined') {
             const storedItems = localStorage.getItem('storedCartItems');
             if (storedItems) {
                 try {
@@ -27,7 +27,7 @@ const Home = () => {
 
                 setIsMounted(true)
             }
-        }
+        // }
     }, []); // This will only run once when the component mounts
 
     // Update localStorage whenever currentCartItems changes
