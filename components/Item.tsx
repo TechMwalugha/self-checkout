@@ -8,8 +8,8 @@ type Item = {
     image: string;
     price: number;
     setTotalPrice: React.Dispatch<React.SetStateAction<number>>;
-    currentCartItems: { name: string; quantity: string; image: string; price: number; }[];
-    setCurrentCartItems: React.Dispatch<React.SetStateAction<{ name: string; quantity: string; image: string; price: number; }[]>>
+    currentCartItems: { name: string; description: string; price: number; image: string; quantity: string; }[];
+    setCurrentCartItems: React.Dispatch<React.SetStateAction<{ name: string; description: string; price: number; image: string; quantity: string }[]>>
 }
 
 const Item = ({name, quantity, image, price, setTotalPrice, currentCartItems, setCurrentCartItems}: Item) => {

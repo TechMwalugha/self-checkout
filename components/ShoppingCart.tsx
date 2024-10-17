@@ -4,31 +4,14 @@ import Image from "next/image";
 import Item from "./Item";
 import { cartItems } from "@/constants";
 import { useEffect, useState } from "react";
+import { ShoppingCartInterface } from "@/interfaces";
 
-export default function ShoppingCart() {
+export default function ShoppingCart({ currentCartItems, setCurrentCartItems, totalPrice, setTotalPrice} : ShoppingCartInterface) {
 
-    const [currentCartItems, setCurrentCartItems] = useState<{ name: string; quantity: string; image: string; price: number; }[]>(cartItems)
-    
-    // // Use useEffect to safely access localStorage on the client side
-    // useEffect(() => {
-    //     const storedItems = localStorage.getItem('storedCartItems')
-    //     if (storedItems && JSON.parse(storedItems).length !== 0) {
-    //         setCurrentCartItems(JSON.parse(storedItems));
-    //     } else if(storedItems) {
-    //         localStorage.setItem('storedCartItems', JSON.stringify([]));
-            
-    //     }
-    // }, []); // Runs once when the component mounts
+    // const [currentCartItems, setCurrentCartItems] = useState<{ name: string; quantity: string; image: string; price: number; }[]>(cartItems)
 
     
-    const [totalPrice, setTotalPrice] = useState(currentCartItems.reduce((acc, item) => acc + item.price, 0))
-
-    // Update localStorage whenever currentCartItems changes
-    // useEffect(() => {
-    //     localStorage.setItem('storedCartItems', JSON.stringify(currentCartItems));
-    //     const newTotalPrice = currentCartItems.reduce((acc, item) => acc + item.price, 0);
-    //     setTotalPrice(newTotalPrice);
-    // }, [currentCartItems]);
+    // const [totalPrice, setTotalPrice] = useState(currentCartItems.reduce((acc, item) => acc + item.price, 0))
 
     function removeAllItems() {
         const confirmWithTheUser = confirm('Are you sure you want to remove all items from the cart?')

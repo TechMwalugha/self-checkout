@@ -21,6 +21,7 @@ export default function CreateNewItem() {
         resolver: zodResolver(itemFormSchema),
         defaultValues: {
             name: '',
+            itemId: '',
             description: '',
             price: 0,
             image: ''
@@ -31,6 +32,7 @@ export default function CreateNewItem() {
         setIsLoading(true)
         const result = await addNewItem({
             name: values.name,
+            itemId: values.itemId,
             description: values.description,
             price: values.price,
             image: values.image,
@@ -62,6 +64,26 @@ export default function CreateNewItem() {
                         <FormControl>
                             <input 
                             placeholder="Mumias Sugar" 
+                            {...field}
+                            className="w-full border-none outline-none p-3 shadow-md rounded-sm"
+                            />
+                        </FormControl>
+                        <FormMessage className="text-tiny-medium text-red-500"/>
+                    </FormItem>
+                )}
+                />
+
+<FormField
+                control={form.control}
+                name='itemId'
+                render={( { field} ) => (
+                    <FormItem
+                    className="my-3"
+                    >
+                        <FormLabel className="block text-black">Item Id</FormLabel>
+                        <FormControl>
+                            <input 
+                            placeholder="123456" 
                             {...field}
                             className="w-full border-none outline-none p-3 shadow-md rounded-sm"
                             />
