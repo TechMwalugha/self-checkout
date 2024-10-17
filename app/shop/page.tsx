@@ -8,6 +8,8 @@ import { useEffect, useState } from "react"
 const Home = () => {
     const [currentCartItems, setCurrentCartItems] = useState<{ name: string; description: string; price: number; image: string; quantity: string; }[]>([]);
     const [totalPrice, setTotalPrice] = useState(0);
+    const [isMounted, setIsMounted] = useState(false)
+    
 
     useEffect(() => {
         // Check if we're in the browser environment
@@ -22,18 +24,26 @@ const Home = () => {
                 } catch (error) {
                     console.error("Error parsing storedCartItems from localStorage", error);
                 }
+
+                setIsMounted(true)
             }
         }
     }, []); // This will only run once when the component mounts
 
     // Update localStorage whenever currentCartItems changes
     useEffect(() => {
-    if (currentCartItems.length > 0) {  // Ensure we don't store empty cart items unnecessarily
+    if (isMounted) {  // Ensure we don't store empty cart items unnecessarily
         localStorage.setItem('storedCartItems', JSON.stringify(currentCartItems));
     }
     const newTotalPrice = currentCartItems.reduce((acc, item) => acc + item.price, 0);
     setTotalPrice(newTotalPrice);
 }, [currentCartItems]);
+
+   if(!isMounted) {
+    return (
+        <div>Loading....</div>
+    )
+   }
 
     return (
         <div className="flex items-center justify-center flex-col w-full mt-5">
