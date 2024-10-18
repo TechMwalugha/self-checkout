@@ -3,6 +3,7 @@
 import { retrieveItem } from '@/lib/actions/item.action';
 import { Html5Qrcode } from 'html5-qrcode'
 import { useEffect, useState } from 'react';
+import { Button } from './ui/button';
 
 const Scanner = ({ 
   currentCartItems, setCurrentCartItems
@@ -41,7 +42,7 @@ const Scanner = ({
         { facingMode: "environment" }, // Use back camera
         config,
        async (decodedText: string) => {
-          // setScanResult(decodedText);
+          setScanResult('Code detected. Please wait..');
           stopScanner(); // Stop the scanner after successful scan
           const result = await addScannedItemToCart({
             decodedText,
@@ -53,6 +54,7 @@ const Scanner = ({
         },
         (errorMessage: string) => {
           console.warn('QR code scan error:', errorMessage);
+          setScanResult('No code detected.')
         }
       ).then(() => {
         setIsScanning(true);
@@ -63,6 +65,7 @@ const Scanner = ({
   };
 
   const stopScanner = () => {
+    setScanResult('')
     if (html5QrCode) {
       html5QrCode.stop().then(() => {
         console.log('Scanner stopped');
@@ -76,22 +79,23 @@ const Scanner = ({
   return (
     <div className="flex flex-col items-center justify-center">
       <div id="reader" className="w-[200px] h-[150px] mb-4"></div>
-      {scanResult ? <p>Scanned Result: {scanResult}</p> : null}
+
+      {scanResult ? <p className='text-subtle-medium my-3 text-red-600'>{scanResult}</p> : null}
       <div className="flex gap-4">
-        <button
-          className="bg-green-500 text-white p-2 rounded"
+        <Button
+          className={`bg-green-500 text-white p-2 rounded`}
           onClick={startScanner}
           disabled={isScanning}
         >
           Start Scanner
-        </button>
-        <button
+        </Button>
+        <Button
           className="bg-red-500 text-white p-2 rounded"
           onClick={stopScanner}
           disabled={!isScanning}
         >
           Stop Scanner
-        </button>
+        </Button>
       </div>
     </div>
   );

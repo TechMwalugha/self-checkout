@@ -4,6 +4,7 @@ import Scanner from "@/components/Scanner"
 import ItemId from "@/components/ItemId"
 import ShoppingCart from "@/components/ShoppingCart"
 import { useEffect, useState } from "react"
+import { LoadingComponent } from "@/components/shared/LoadingComponent"
 
 const Home = () => {
     const [currentCartItems, setCurrentCartItems] = useState<{ name: string; description: string; price: number; image: string; quantity: string; }[]>([]);
@@ -15,7 +16,7 @@ const Home = () => {
         // Check if we're in the browser environment
         if (typeof window !== 'undefined') {
             let storedItems = localStorage.getItem('storedCartItems');
-            console.log(storedItems === null)
+
             if (storedItems || storedItems === null) {
 
                 if(storedItems === null) {
@@ -47,7 +48,7 @@ const Home = () => {
 
    if(!isMounted) {
     return (
-        <div>Loading....</div>
+        <LoadingComponent />
     )
    }
 
