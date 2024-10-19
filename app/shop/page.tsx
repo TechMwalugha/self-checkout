@@ -57,7 +57,9 @@ const Home = () => {
             <Tabs defaultValue="qr-code" className="sm:w-[400px] w-full">
                 <TabsList className="w-full flex items-center justify-between bg-black">
                     <TabsTrigger value="qr-code">Use Qr Code Scanner</TabsTrigger>
-                    <TabsTrigger value="item-id">Enter Item ID</TabsTrigger>
+                    <TabsTrigger 
+                    value="item-id"
+                    >Enter Item ID</TabsTrigger>
                 </TabsList>
                 <TabsContent value="qr-code">
                     <Scanner

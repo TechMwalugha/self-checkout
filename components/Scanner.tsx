@@ -37,7 +37,7 @@ const Scanner = ({
   const startScanner = () => {
     setScanResult(null)
     if (html5QrCode) {
-      const config = { fps: 10, qrbox: { width: 250, height: 250 }, aspectRatio: 1.777778 };
+      const config = { fps: 10, qrbox: { width: 200, height: 200 },  };
       html5QrCode.start(
         { facingMode: "environment" }, // Use back camera
         config,
@@ -78,7 +78,7 @@ const Scanner = ({
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <div id="reader" className="w-[200px] h-[150px] mb-4"></div>
+      <div id="reader" className="w-[250px] h-[250px] mb-2"></div>
 
       {scanResult ? <p className='text-subtle-medium my-3 text-red-600'>{scanResult}</p> : null}
       <div className="flex gap-4">
