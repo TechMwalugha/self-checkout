@@ -2,17 +2,21 @@
 
 import { retrieveItem } from '@/lib/actions/item.action';
 import { Html5Qrcode } from 'html5-qrcode'
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from './ui/button';
+import { MdQrCodeScanner } from "react-icons/md";
 
 const Scanner = ({ 
-  currentCartItems, setCurrentCartItems
+  currentCartItems, 
+  setCurrentCartItems,
 }: {
   currentCartItems: { name: string; description: string; price: number; image: string; quantity: string }[];
-  setCurrentCartItems: React.Dispatch<React.SetStateAction<{ name: string; description: string; price: number; image: string; quantity: string }[]>>
+  setCurrentCartItems: React.Dispatch<React.SetStateAction<{ name: string; description: string; price: number; image: string; quantity: string }[]>>;
 }) => {
   const [html5QrCode, setHtml5QrCode] = useState<Html5Qrcode | null>(null);
   const [scanResult, setScanResult] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false)
+
   const [isScanning, setIsScanning] = useState(false);
 
   useEffect(() => {
@@ -44,13 +48,14 @@ const Scanner = ({
        async (decodedText: string) => {
           setScanResult('Code detected. Please wait..');
           stopScanner(); // Stop the scanner after successful scan
+          setIsLoading(true) //set Loading state to true
           const result = await addScannedItemToCart({
             decodedText,
             currentCartItems,
             setCurrentCartItems
           })
           setScanResult(result.message as string)
-
+          setIsLoading(false)
         },
         (errorMessage: string) => {
           console.warn('QR code scan error:', errorMessage);
@@ -78,8 +83,13 @@ const Scanner = ({
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <div id="reader" className="w-[250px] h-[250px] mb-2"></div>
-
+      <div id="reader" className="static w-[250px] h-[250px] mb-4"></div>
+      {
+        isLoading && <div className='flex items-center justify-center flex-col my-3'>
+        <MdQrCodeScanner className='animate-ping mb-2'/>
+          <p className='animate-pulse text-subtle-semibold'>Item Scanned! Please wait</p>
+        </div>
+      }
       {scanResult ? <p className='text-subtle-medium my-3 text-red-600'>{scanResult}</p> : null}
       <div className="flex gap-4">
         <Button

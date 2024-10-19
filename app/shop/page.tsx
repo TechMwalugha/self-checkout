@@ -11,7 +11,6 @@ const Home = () => {
     const [totalPrice, setTotalPrice] = useState(0);
     const [isMounted, setIsMounted] = useState(false)
     
-
     useEffect(() => {
         // Check if we're in the browser environment
         if (typeof window !== 'undefined') {
