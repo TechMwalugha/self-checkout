@@ -87,7 +87,7 @@ const Scanner = ({
       {
         isLoading && <div className='flex items-center justify-center flex-col my-3'>
         <MdQrCodeScanner className='animate-ping mb-2'/>
-          <p className='animate-pulse text-subtle-semibold'>Item Scanned! Please wait</p>
+          <p className='animate-pulse text-subtle-medium'>Item Scanned! Please wait</p>
         </div>
       }
       {scanResult ? <p className='text-subtle-medium my-3 text-red-600'>{scanResult}</p> : null}

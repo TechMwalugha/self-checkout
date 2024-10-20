@@ -5,13 +5,11 @@ import Item from "./Item";
 import { cartItems } from "@/constants";
 import { useEffect, useState } from "react";
 import { ShoppingCartInterface } from "@/interfaces";
+import { Button } from "./ui/button";
+import { requestPayment } from "@/lib/intasend.payment";
 
 export default function ShoppingCart({ currentCartItems, setCurrentCartItems, totalPrice, setTotalPrice} : ShoppingCartInterface) {
-
-    // const [currentCartItems, setCurrentCartItems] = useState<{ name: string; quantity: string; image: string; price: number; }[]>(cartItems)
-
-    
-    // const [totalPrice, setTotalPrice] = useState(currentCartItems.reduce((acc, item) => acc + item.price, 0))
+    const [isLoading, setIsLoading] = useState(false)
 
     function removeAllItems() {
         const confirmWithTheUser = confirm('Are you sure you want to remove all items from the cart?')
@@ -20,6 +18,17 @@ export default function ShoppingCart({ currentCartItems, setCurrentCartItems, to
             setCurrentCartItems([])
         }
     }
+
+    async function reqPayment() {
+        setIsLoading(true)
+       const response =  requestPayment()
+
+
+            setIsLoading(false)
+            alert(response)
+
+    }
+
     return (
         <div className="md:w-3/4 w-full bg-white p-4 shadow-md rounded-md">
            <section className="flex items-center justify-between">
@@ -62,11 +71,20 @@ export default function ShoppingCart({ currentCartItems, setCurrentCartItems, to
             <hr className="my-3" />
 
             <div className="flex items-center justify-end gap-5">
-                <h4 className="text-body-bold">Sub-Total</h4>
-                <h2 className="text-heading3-bold">Ksh. {totalPrice}</h2>
+                <h4 className="text-body-bold">Sub-Total:</h4>
+                <h2 className="text-base-semibold">Ksh. {totalPrice}</h2>
             </div>
            </div>
 
+            <hr className="my-3" />
+
+           <Button
+           onClick={reqPayment}
+           className="w-full mt-3"
+           disabled={isLoading}
+           >
+            {isLoading ? 'Please wait' : `Pay Ksh. ${totalPrice}`}
+           </Button>
         </div>
     )
 }
