@@ -79,7 +79,7 @@ export default function ShoppingCart({ currentCartItems, setCurrentCartItems, to
             <hr className="my-3" />
 
            <Button
-           onClick={reqPayment}
+           onClick={requestPayment}
            className="w-full mt-3"
            disabled={isLoading}
            >
