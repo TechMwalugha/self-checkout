@@ -6,7 +6,6 @@ import { cartItems } from "@/constants";
 import { useEffect, useState } from "react";
 import { ShoppingCartInterface } from "@/interfaces";
 import { Button } from "./ui/button";
-import { requestPayment } from "@/lib/intasend.payment";
 
 export default function ShoppingCart({ currentCartItems, setCurrentCartItems, totalPrice, setTotalPrice} : ShoppingCartInterface) {
     const [isLoading, setIsLoading] = useState(false)
@@ -19,14 +18,29 @@ export default function ShoppingCart({ currentCartItems, setCurrentCartItems, to
         }
     }
 
-    async function reqPayment() {
-        setIsLoading(true)
-       const response =  requestPayment()
+    async function payHandler() {
 
+        const data = {
+            public_key: 'ISPubKey_live_de0dd599-70a1-4007-939a-0d6dda00df6c',
+            first_name: 'Emmanuel',
+            last_name: 'Mwalugha',
+            email: 'mwalughaemmanuel@gmail.com',
+            phone_number: '254717355181',
+            host: 'https://self-checkout-tau.vercel.app',
+            amount: '20',
+            currency: 'KES',
+            api_ref: 'live'
+        }
 
-            setIsLoading(false)
-            alert(response)
+        const response = await fetch('https://sandbox.intasend.com/api/v1/checkout/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
 
+        console.log(response)
     }
 
     return (
@@ -79,12 +93,13 @@ export default function ShoppingCart({ currentCartItems, setCurrentCartItems, to
             <hr className="my-3" />
 
            <Button
-           onClick={requestPayment}
+           onClick={payHandler}
            className="w-full mt-3"
            disabled={isLoading}
            >
             {isLoading ? 'Please wait' : `Pay Ksh. ${totalPrice}`}
            </Button>
+
         </div>
     )
 }
