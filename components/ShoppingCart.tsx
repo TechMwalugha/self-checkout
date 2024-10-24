@@ -3,12 +3,14 @@
 import Image from "next/image";
 import Item from "./Item";
 import { cartItems } from "@/constants";
-import { useEffect, useState } from "react";
+import { useEffect, useState, } from "react";
 import { ShoppingCartInterface } from "@/interfaces";
 import { Button } from "./ui/button";
+import { useRouter } from "next/navigation";
 
 export default function ShoppingCart({ currentCartItems, setCurrentCartItems, totalPrice, setTotalPrice} : ShoppingCartInterface) {
     const [isLoading, setIsLoading] = useState(false)
+    const router = useRouter()
 
     function removeAllItems() {
         const confirmWithTheUser = confirm('Are you sure you want to remove all items from the cart?')
@@ -27,12 +29,13 @@ export default function ShoppingCart({ currentCartItems, setCurrentCartItems, to
             email: 'mwalughaemmanuel@gmail.com',
             phone_number: '254717355181',
             host: 'https://self-checkout-tau.vercel.app',
-            amount: '20',
+            amount: '1',
             currency: 'KES',
-            api_ref: 'live'
+            api_ref: 'live',
+            redirect_url:'https://localhost:3000'
         }
 
-        const response = await fetch('https://sandbox.intasend.com/api/v1/checkout/', {
+        const res = await fetch('https://payment.intasend.com/api/v1/checkout/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -40,7 +43,10 @@ export default function ShoppingCart({ currentCartItems, setCurrentCartItems, to
             body: JSON.stringify(data)
         })
 
-        console.log(response)
+        if(res.ok) {
+            const responseData = await res.json()
+            router.push(responseData.url)
+        }
     }
 
     return (
