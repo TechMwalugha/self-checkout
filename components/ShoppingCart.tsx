@@ -9,10 +9,6 @@ import { ShoppingCartInterface } from "@/interfaces";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
 
-
-import IntaSend from 'intasend-node'
-import { payHandler } from "@/lib/intasend.payment";
-
 export default function ShoppingCart({ currentCartItems, setCurrentCartItems, totalPrice, setTotalPrice} : ShoppingCartInterface) {
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
@@ -23,6 +19,39 @@ export default function ShoppingCart({ currentCartItems, setCurrentCartItems, to
         if(confirmWithTheUser) {
             setCurrentCartItems([])
         }
+    }
+
+    async function payHandler() {
+        setIsLoading(true)
+
+        const data = {
+            public_key: 'ISPubKey_live_de0dd599-70a1-4007-939a-0d6dda00df6c',
+            first_name: 'Emmanuel',
+            last_name: 'Mwalugha',
+            email: 'mwalughaemmanuel@gmail.com',
+            phone_number: '254717355181',
+            host: 'https://self-checkout-tau.vercel.app',
+            amount: '10',
+            currency: 'KES',
+            api_ref: 'live',
+        }
+
+        const response = await fetch('https://payment.intasend.com/api/v1/checkout/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+
+        const responseData = await response.json()
+        if(!response.ok) {
+            setIsLoading(false)
+            console.log('An error occurred')
+        }
+        
+        setIsLoading(false)
+        router.push(responseData.url)
     }
 
 
