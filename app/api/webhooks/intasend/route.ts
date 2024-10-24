@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-    console.log(req.body)
+    const body = await req.json() 
+    console.log(body)
     return new NextResponse(req.body, { status: 200 })
 }
