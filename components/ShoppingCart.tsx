@@ -1,5 +1,6 @@
 'use client'
 
+
 import Image from "next/image";
 import Item from "./Item";
 import { cartItems } from "@/constants";
@@ -7,6 +8,10 @@ import { useEffect, useState, } from "react";
 import { ShoppingCartInterface } from "@/interfaces";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
+
+
+import IntaSend from 'intasend-node'
+import { payHandler } from "@/lib/intasend.payment";
 
 export default function ShoppingCart({ currentCartItems, setCurrentCartItems, totalPrice, setTotalPrice} : ShoppingCartInterface) {
     const [isLoading, setIsLoading] = useState(false)
@@ -20,34 +25,7 @@ export default function ShoppingCart({ currentCartItems, setCurrentCartItems, to
         }
     }
 
-    async function payHandler() {
 
-        const data = {
-            public_key: 'ISPubKey_live_de0dd599-70a1-4007-939a-0d6dda00df6c',
-            first_name: 'Emmanuel',
-            last_name: 'Mwalugha',
-            email: 'mwalughaemmanuel@gmail.com',
-            phone_number: '254717355181',
-            host: 'https://self-checkout-tau.vercel.app',
-            amount: '1',
-            currency: 'KES',
-            api_ref: 'live',
-            redirect_url:'https://localhost:3000'
-        }
-
-        const res = await fetch('https://payment.intasend.com/api/v1/checkout/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-
-        if(res.ok) {
-            const responseData = await res.json()
-            router.push(responseData.url)
-        }
-    }
 
     return (
         <div className="md:w-3/4 w-full bg-white p-4 shadow-md rounded-md">
