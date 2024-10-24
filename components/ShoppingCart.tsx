@@ -34,6 +34,7 @@ export default function ShoppingCart({ currentCartItems, setCurrentCartItems, to
             amount: '10',
             currency: 'KES',
             api_ref: 'live',
+            redirect_url: 'https://self-checkout-tau.vercel.app/thank-you'
         }
 
         const response = await fetch('https://payment.intasend.com/api/v1/checkout/', {
