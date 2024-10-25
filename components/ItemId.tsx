@@ -4,15 +4,15 @@ import { useState } from "react"
 import { Button } from "./ui/button"
 import { retrieveItem } from "@/lib/actions/item.action"
 import { AiOutlineLoading } from "react-icons/ai";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { notifySuccess } from "@/constants/toast";
 
 const ItemId = (
   { currentCartItems, setCurrentCartItems } :
    { 
-    currentCartItems: { name: string; description: string; price: number; image: string; quantity: string;}[];
-    setCurrentCartItems : React.Dispatch<React.SetStateAction<{ name: string; description: string; price: number; image: string; quantity: string;}[]>>
+    currentCartItems: { name: string; description: string; price: number; image: string; quantity: string; frequency: number;}[];
+    setCurrentCartItems : React.Dispatch<React.SetStateAction<{ name: string; description: string; price: number; image: string; quantity: string; frequency: number;}[]>>
   }
   ) => {
     const [itemId, setItemId] = useState<null | string >(() => {

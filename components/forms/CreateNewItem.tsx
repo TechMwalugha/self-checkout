@@ -4,7 +4,7 @@ import { itemFormSchema } from "@/lib/validations/item"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../ui/form"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form"
 import { Button } from "../ui/button"
 import { addNewItem } from "@/lib/actions/item.action"
 import { ToastContainer, toast } from 'react-toastify';

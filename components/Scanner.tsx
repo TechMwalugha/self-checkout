@@ -10,8 +10,8 @@ const Scanner = ({
   currentCartItems, 
   setCurrentCartItems,
 }: {
-  currentCartItems: { name: string; description: string; price: number; image: string; quantity: string }[];
-  setCurrentCartItems: React.Dispatch<React.SetStateAction<{ name: string; description: string; price: number; image: string; quantity: string }[]>>;
+  currentCartItems: { name: string; description: string; price: number; image: string; quantity: string; frequency: number; }[];
+  setCurrentCartItems: React.Dispatch<React.SetStateAction<{ name: string; description: string; price: number; image: string; quantity: string; frequency: number; }[]>>;
 }) => {
   const [html5QrCode, setHtml5QrCode] = useState<Html5Qrcode | null>(null);
   const [scanResult, setScanResult] = useState<string | null>(null);
@@ -113,8 +113,8 @@ const Scanner = ({
 
 async function addScannedItemToCart({ decodedText, currentCartItems, setCurrentCartItems } : {
   decodedText: string;
-  currentCartItems: { name: string; description: string; price: number; image: string; quantity: string }[];
-  setCurrentCartItems: React.Dispatch<React.SetStateAction<{ name: string; description: string; price: number; image: string; quantity: string }[]>>
+  currentCartItems: { name: string; description: string; price: number; image: string; quantity: string; frequency: number; }[];
+  setCurrentCartItems: React.Dispatch<React.SetStateAction<{ name: string; description: string; price: number; image: string; quantity: string; frequency: number; }[]>>
 }) {
 
   const result = await retrieveItem({ itemId: decodedText })

@@ -7,7 +7,7 @@ import { useEffect, useState } from "react"
 import { LoadingComponent } from "@/components/shared/LoadingComponent"
 
 const Home = () => {
-    const [currentCartItems, setCurrentCartItems] = useState<{ name: string; description: string; price: number; image: string; quantity: string; }[]>([]);
+    const [currentCartItems, setCurrentCartItems] = useState<{ name: string; description: string; price: number; image: string; quantity: string; frequency: number; }[]>([]);
     const [totalPrice, setTotalPrice] = useState(0);
     const [isMounted, setIsMounted] = useState(false)
     

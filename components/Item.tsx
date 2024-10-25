@@ -7,35 +7,56 @@ type Item = {
     quantity: string;
     image: string;
     price: number;
+    frequency: number; 
     setTotalPrice: React.Dispatch<React.SetStateAction<number>>;
-    currentCartItems: { name: string; description: string; price: number; image: string; quantity: string; }[];
-    setCurrentCartItems: React.Dispatch<React.SetStateAction<{ name: string; description: string; price: number; image: string; quantity: string }[]>>
+    currentCartItems: { name: string; description: string; price: number; image: string; quantity: string; frequency: number; }[];
+    setCurrentCartItems: React.Dispatch<React.SetStateAction<{ name: string; description: string; price: number; image: string; quantity: string; frequency: number; }[]>>
 }
 
-const Item = ({name, quantity, image, price, setTotalPrice, currentCartItems, setCurrentCartItems}: Item) => {
+const Item = ({name, quantity, image, price, frequency, setTotalPrice, currentCartItems, setCurrentCartItems}: Item) => {
 
-    const [numberOfItems, setNumberOfItems] = useState(1)
+    // const [numberOfItems, setNumberOfItems] = useState(1)
 
+    if(!frequency) {
+        frequency = 1
+    }
+
+    currentCartItems.map((item: any) => {
+        if (item.name === name) {
+            item.frequency = frequency
+        }
+
+    })
 
     function addNoItem() {
-        setNumberOfItems((numberOfItems) => {
-            return numberOfItems + 1
-        })
 
         setTotalPrice((totalPrice: number) => {
             return totalPrice + price * 1
         })
+
+       currentCartItems.map((item: any) => {
+            if (item.name === name) {
+                item.frequency = frequency + 1
+            }
+
+        })
+
     }
 
     function removeNoItem() {
-        if(numberOfItems > 1 ) {
-            setNumberOfItems((numberOfItems) => {
-                return numberOfItems - 1
-            })
+        if(frequency > 1 ) { 
 
             setTotalPrice((totalPrice: number) => {
                 return totalPrice - price * 1
             })
+
+            currentCartItems.map((item: any) => {
+                if (item.name === name) {
+                    item.frequency = frequency - 1
+                }
+    
+            })
+
         }
     }
 
@@ -46,7 +67,7 @@ const Item = ({name, quantity, image, price, setTotalPrice, currentCartItems, se
         setCurrentCartItems(newCartItems)
 
         setTotalPrice((totalPrice: number) => {
-            return totalPrice - price * numberOfItems
+            return totalPrice - price * frequency
         })
     }
   return (
@@ -71,7 +92,7 @@ const Item = ({name, quantity, image, price, setTotalPrice, currentCartItems, se
                     >
                         +
                     </button>
-                    <p className="mx-2 text-subtle-semibold">{numberOfItems}</p>
+                    <p className="mx-2 text-subtle-semibold">{frequency}</p>
                     <button  
                     type="button"
                     className="bg-gray-400 rounded-full w-6 h-6"
@@ -83,7 +104,7 @@ const Item = ({name, quantity, image, price, setTotalPrice, currentCartItems, se
                 </div>
 
                 <div className="flex items-center flex-col">
-                    <h3>Ksh. {price * numberOfItems}</h3>
+                    <h3>Ksh. {price * frequency}</h3>
                     <button 
                     type="button"
                      className="text-subtle-medium text-red-600 underline hover:no-underline delay-500 text-center"
