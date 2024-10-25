@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
     const body = await req.json() 
     
-    const checkout = await retrieveCheckOut({ apiRef: body.apiRef})
+    const checkout = await retrieveCheckOut({ apiRef: body.api_ref})
 
     if(!checkout || body.challenge == '12345678') {
         console.log(checkout)
