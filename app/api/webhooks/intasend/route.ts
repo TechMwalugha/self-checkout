@@ -6,7 +6,7 @@ export async function POST(req: NextRequest) {
     
     const checkout = await retrieveCheckOut({ apiRef: body.api_ref})
 
-    if(!checkout || body.challenge == '12345678') {
+    if(!checkout) {
         console.log(checkout)
         console.log(body)
         return new NextResponse('Bad Request', { status: 400})
