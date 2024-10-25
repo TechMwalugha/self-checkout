@@ -72,7 +72,7 @@ import { useRouter } from "next/navigation"
             host: 'https://self-checkout-tau.vercel.app',
             amount: totalPrice,
             currency: 'KES',
-            api_ref: 'live',
+            api_ref: apiRef,
             redirect_url: 'https://self-checkout-tau.vercel.app/thank-you'
         }
 
