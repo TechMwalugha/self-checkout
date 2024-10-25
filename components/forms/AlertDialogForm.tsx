@@ -70,7 +70,7 @@ import { useRouter } from "next/navigation"
             email: values.email,
             phone_number: values.phoneNumber,
             host: 'https://self-checkout-tau.vercel.app',
-            amount: totalPrice,
+            amount: '10',
             currency: 'KES',
             api_ref: apiRef,
             redirect_url: 'https://self-checkout-tau.vercel.app/thank-you'
