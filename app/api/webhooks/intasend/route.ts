@@ -13,6 +13,7 @@ export async function POST(req: NextRequest) {
     }
 
     if(body.state === 'COMPLETE' || body.state === 'FAILED') {
+        checkout.amount = body.net_amount
         checkout.state = body.state
         checkout.failedReason = body.failed_reason || ''
 
