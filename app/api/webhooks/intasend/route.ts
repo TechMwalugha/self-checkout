@@ -12,9 +12,9 @@ export async function POST(req: NextRequest) {
         return new NextResponse('Bad Request', { status: 400})
     }
 
-    if(body.status === 'COMPLETE' || body.status === 'FAILED') {
+    if(body.state === 'COMPLETE' || body.state === 'FAILED') {
         checkout.state = body.status
-        checkout.failedReason = body.failed_reason
+        checkout.failedReason = body.failed_reason || ''
 
         await checkout.save()
     }
