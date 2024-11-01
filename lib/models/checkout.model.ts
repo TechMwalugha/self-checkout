@@ -49,6 +49,9 @@ const checkOutSchema = new mongoose.Schema({
             },
         }
     ],
+    paymentUrl: {
+        type: String,
+    },
     state: {
         type: String,
     },

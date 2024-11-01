@@ -19,7 +19,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import LoadingBtn from "../shared/LoadingBtn"
 import { CheckOutInterface } from "@/interfaces"
 import {  useState } from "react"
-import { createCheckOut } from "@/lib/actions/checkout.action"
+import { createCheckOut, updatePaymentCheckOutUrl } from "@/lib/actions/checkout.action"
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { notifyError, notifySuccess } from "@/constants/toast"
@@ -73,7 +73,7 @@ import { useRouter } from "next/navigation"
             amount: '10',
             currency: 'KES',
             api_ref: apiRef,
-            redirect_url: 'https://self-checkout-tau.vercel.app/thank-you'
+            redirect_url: `https://self-checkout-tau.vercel.app/thank-you/${apiRef}`
         }
 
         const response = await fetch('https://payment.intasend.com/api/v1/checkout/', {
@@ -87,9 +87,20 @@ import { useRouter } from "next/navigation"
         const responseData = await response.json()
         if(!response.ok) {
             setIsLoading(false)
+            notifyError({
+              message: 'An error occurred please try again'
+            })
+            console.log('An error occurred on intasend')
+        }
+        const savePaymentUrlRes = await updatePaymentCheckOutUrl({ apiRef: apiRef, paymentUrl: responseData.url})
+
+        if(!savePaymentUrlRes.success) {
+            setIsLoading(false)
+            notifyError({
+              message: savePaymentUrlRes.message
+            })
             console.log('An error occurred')
         }
-        
         
         notifySuccess({
           message: firstResponse.message
