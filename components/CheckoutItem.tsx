@@ -34,7 +34,7 @@ const CheckoutItem = ({name, quantity, image, price, frequency}: Item) => {
                 </div>
 
                 <div className="flex items-center flex-col">
-                    <h3>Ksh. {formatCurrency(price * frequency)}</h3>
+                    <h3>{formatCurrency(price * frequency)}</h3>
                 </div>
             </div>
   )
