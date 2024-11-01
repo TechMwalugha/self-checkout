@@ -9,6 +9,7 @@ import { ShoppingCartInterface } from "@/interfaces";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
 import { AlertDialogForm } from "./forms/AlertDialogForm";
+import { formatCurrency } from "@/lib/utils";
 
 export default function ShoppingCart({ currentCartItems, setCurrentCartItems, totalPrice, setTotalPrice} : ShoppingCartInterface) {
     const [isLoading, setIsLoading] = useState(false)
@@ -66,7 +67,7 @@ export default function ShoppingCart({ currentCartItems, setCurrentCartItems, to
 
             <div className="flex items-center justify-end gap-5">
                 <h4 className="text-body-bold">Sub-Total:</h4>
-                <h2 className="text-base-semibold">Ksh. {totalPrice}</h2>
+                <h2 className="text-base-semibold">{formatCurrency(totalPrice)}</h2>
             </div>
            </div>
 

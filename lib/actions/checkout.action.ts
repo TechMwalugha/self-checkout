@@ -95,3 +95,22 @@ export async function updatePaymentCheckOutUrl({apiRef, paymentUrl} : { apiRef: 
         }
     }
 }
+
+export async function retrieveAllCheckOuts() {
+    try {
+        connectToDB()
+
+        return {
+            success: true,
+            data: await CheckOut.find(),
+        }
+        
+    } catch (error: any) {
+        console.error(error.message)
+        return {
+            success: false,
+            message: 'An error occurred while retrieving Checkouts. Please refresh.'
+        }
+
+    }
+}

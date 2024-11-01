@@ -1,4 +1,5 @@
 'use client'
+import { formatCurrency } from "@/lib/utils";
 import Image from "next/image"
 import { useState } from "react"
 
@@ -104,7 +105,7 @@ const Item = ({name, quantity, image, price, frequency, setTotalPrice, currentCa
                 </div>
 
                 <div className="flex items-center flex-col">
-                    <h3>Ksh. {price * frequency}</h3>
+                    <h3>{formatCurrency(price * frequency)}</h3>
                     <button 
                     type="button"
                      className="text-subtle-medium text-red-600 underline hover:no-underline delay-500 text-center"

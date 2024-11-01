@@ -2,11 +2,17 @@
 import CheckoutItem from "@/components/CheckoutItem"
 import { Button } from "@/components/ui/button"
 import { retrieveCheckOut } from "@/lib/actions/checkout.action"
-import { CheckCircledIcon } from "@radix-ui/react-icons"
+import { hideCenterDigits } from "@/lib/utils"
 import Link from "next/link"
 
-export default async function Home( { params } : { params : { id: string }}) { 
+export default async function Home( 
+    { params } : 
+    { params : { 
+        id: string
+    }}) { 
+        
     const checkout = await retrieveCheckOut({ apiRef: params.id })
+
 
     return (
         <div className="">
@@ -30,11 +36,11 @@ export default async function Home( { params } : { params : { id: string }}) {
                                </p>
                                <p className="flex items-center justify-between mb-3">
                                 Email:
-                                 <span className="bg-green-500 px-2 rounded-md">{checkout.email}</span>
+                                 <span className="bg-green-500 px-2 rounded-md">{hideCenterDigits(checkout.email)}</span>
                                </p>
                                <p className="flex items-center justify-between mb-3">
                                 Phone Number:
-                                 <span className="bg-green-500 px-2 rounded-md">{checkout.phoneNumber}</span>
+                                 <span className="bg-green-500 px-2 rounded-md">{hideCenterDigits(checkout.phoneNumber)}</span>
                                </p>
                                <p className="flex items-center justify-between mb-3">
                                 Total Price:
