@@ -5,6 +5,10 @@ const nextConfig = {
             {
                 protocol: 'https',
                 hostname: 'encrypted-tbn0.gstatic.com'
+            },
+            {
+                protocol: 'https',
+                hostname: 'self-checkout-tau.vercel.app'
             }
         ]
     }

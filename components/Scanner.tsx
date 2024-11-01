@@ -41,7 +41,7 @@ const Scanner = ({
   const startScanner = () => {
     setScanResult(null)
     if (html5QrCode) {
-      const config = { fps: 10, qrbox: { width: 200, height: 200 },  };
+      const config = { fps: 10, qrbox: { width: 250, height: 250 },  };
       html5QrCode.start(
         { facingMode: "environment" }, // Use back camera
         config,
@@ -83,7 +83,7 @@ const Scanner = ({
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <div id="reader" className="static w-[250px] h-[250px] mb-4"></div>
+      <div id="reader" className="w-[250px] h-[250px] mb-4"></div>
       {
         isLoading && <div className='flex items-center justify-center flex-col my-3'>
         <MdQrCodeScanner className='animate-ping mb-2'/>
