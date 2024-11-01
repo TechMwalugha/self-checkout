@@ -1,4 +1,5 @@
 'use client'
+import { formatCurrency } from "@/lib/utils";
 import Image from "next/image"
 import { useState } from "react"
 
@@ -33,7 +34,7 @@ const CheckoutItem = ({name, quantity, image, price, frequency}: Item) => {
                 </div>
 
                 <div className="flex items-center flex-col">
-                    <h3>Ksh. {price * frequency}</h3>
+                    <h3>Ksh. {formatCurrency(price * frequency)}</h3>
                 </div>
             </div>
   )

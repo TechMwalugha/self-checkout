@@ -24,6 +24,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { notifyError, notifySuccess } from "@/constants/toast"
 import { useRouter } from "next/navigation"
+import { formatCurrency } from "@/lib/utils"
 
   export function AlertDialogForm({ currentCartItems, totalPrice } : CheckOutInterface) {
     const [isLoading, setIsLoading] = useState(false)
@@ -112,9 +113,9 @@ import { useRouter } from "next/navigation"
         <AlertDialog>
             <AlertDialogTrigger
             disabled={false}
-             className="w-full mt-3 cursor-pointer bg-black text-white p-2 rounded-sm">
+             className="w-full mt-3 cursor-pointer bg-black text-white p-2 rounded-sm capitalize">
             
-            {`Pay Ksh. ${totalPrice}`} 
+            {`Pay ${formatCurrency(totalPrice)}`} 
 
             </AlertDialogTrigger>
             <AlertDialogContent>
